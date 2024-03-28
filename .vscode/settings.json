@@ -1,0 +1,6 @@
+{
+  "rust-analyzer.linkedProjects": [
+    "./src/soroban/Cargo.toml",
+    "./src/icp/Cargo.toml"
+  ]
+}
