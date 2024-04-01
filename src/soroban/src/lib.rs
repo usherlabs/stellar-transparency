@@ -1,21 +1,28 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contractimpl, contracttype, symbol_short, Address, BytesN, Env, String, Vec,
+    contract, contractimpl, contracttype, symbol_short, Address, Bytes, BytesN, Env, String, Symbol, Vec
 };
+
 use types::Message;
 use utils::verify_single_process;
 
-
 pub mod types;
 pub mod utils;
+
+const COUNTER: Symbol = symbol_short!("COUNTER");
+
+#[contracttype]
+#[derive(Clone)]
+pub struct Details {
+    pub signature: Bytes
+}
 
 #[contracttype]
 #[derive(Clone)]
 enum DataKey {
     Admin,
 }
-
 
 #[contract]
 pub struct Contract;

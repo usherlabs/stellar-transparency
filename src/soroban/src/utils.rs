@@ -1,6 +1,5 @@
-use soroban_sdk::{vec, Bytes, BytesN, Env, String, Vec};
-
 use crate::types::Message;
+use soroban_sdk::{vec, Bytes, BytesN, Env, String, Vec};
 
 // recover the corresponding ecdsa address used to make this signature
 pub fn recover_ecdsa_public_key(env: &Env, message_bytes: Bytes, signature: Bytes) -> BytesN<20> {
@@ -138,6 +137,8 @@ fn convert_nibble_to_string_byte(env: &Env, nibble: u8) -> u8 {
         return number_to_string_bytes(env, nibble as u64).get(0).unwrap();
     }
 
+    // better to use a map than a formula for readability
+    // return 87 + nibble;
     match nibble {
         10 => 97,
         11 => 98,

@@ -1,14 +1,18 @@
-use crate::types::{Message, MessageId, RefOption, StringOption};
+#![cfg(test)]
 
-use crate::utils::verify_single_process;
-use crate::{
+use crate::types::{Message, MessageId, RefOption, StringOption};
+use soroban_sdk::testutils::Events;
+
+// use crate::utils::verify_single_process;
+use crate::
     utils::{
         byte_to_hex_string_bytes, concatenate_bytes, hash_eth_message, number_to_string_bytes,
         recover_ecdsa_public_key, string_to_bytes,
-    },
-    Contract,
-};
+    };
 use soroban_sdk::{vec, Bytes, BytesN, Env, String};
+
+use super::*;
+
 extern crate std;
 
 pub fn get_mock_proof(env: &Env) -> Message{ 
@@ -171,7 +175,12 @@ fn test_verify_processes() {
     let env = Env::default();
     let message = get_mock_proof(&env);
 
-    let verified = Contract::verify_process(env.clone(), vec![&env, message.clone(),message.clone()],String::from_str(&env, "text") );
+    let contract_id = env.register_contract(None, Contract);
+    let client = ContractClient::new(&env, &contract_id);
+
+    let verified = client.verify_process(&vec![&env, message.clone(),message.clone()],&String::from_str(&env, "text") );
+
+    assert_eq!(env.events().all().len(), 1);
     assert_eq!(verified, true);
 }
 
