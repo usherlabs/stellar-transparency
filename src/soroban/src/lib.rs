@@ -1,7 +1,7 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contractimpl, contracttype, symbol_short, Address, Bytes, BytesN, Env, String, Symbol, Vec
+    contract, contractimpl, contracttype, symbol_short, Address, Bytes, BytesN, Env, String, Vec
 };
 
 use types::Message;
@@ -9,8 +9,6 @@ use utils::verify_single_process;
 
 pub mod types;
 pub mod utils;
-
-const COUNTER: Symbol = symbol_short!("COUNTER");
 
 #[contracttype]
 #[derive(Clone)]
